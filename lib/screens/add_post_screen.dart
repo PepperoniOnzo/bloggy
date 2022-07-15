@@ -26,7 +26,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        context.read<ViewHome>().getHttpAllPosts();
+        context.read<ViewHome>().refresh();
         return true;
       },
       child: Scaffold(
@@ -71,12 +71,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 AppSnackBarErrors.snackSmtWentWrongError);
                           }
+                          context.read<ViewHome>().refresh();
                         });
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             AppSnackBarErrors.snackFillAllFieldsError);
                       }
-
                       FocusManager.instance.primaryFocus?.unfocus();
                     },
                     style: ElevatedButton.styleFrom(

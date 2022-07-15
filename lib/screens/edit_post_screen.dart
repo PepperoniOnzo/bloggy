@@ -1,3 +1,4 @@
+import 'package:bloggy/data/routes/routes.dart';
 import 'package:bloggy/views/view_home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,84 +30,96 @@ class _EditPostScreenState extends State<EditPostScreen> {
     titleController.text = post.title;
     bodyController.text = post.body;
 
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(),
-                  ),
-                  child: const Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.arrow_back, size: 25),
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    if (titleController.text.isNotEmpty &&
-                        bodyController.text.isNotEmpty) {
+    return WillPopScope(
+      onWillPop: () async {
+        context.read<ViewHome>().refresh();
+        return true;
+      },
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
                       Navigator.pop(context);
-
-                      context
-                          .read<ViewHome>()
-                          .updatePost(titleController.text, bodyController.text)
-                          .then((value) {
-                        if (value) {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("Post successfully edited"),
-                            duration: Duration(seconds: 1),
-                          ));
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              AppSnackBarErrors.snackSmtWentWrongError);
-                        }
-                      });
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          AppSnackBarErrors.snackFillAllFieldsError);
-                    }
-
-                    FocusManager.instance.primaryFocus?.unfocus();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(),
-                  ),
-                  child: const Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.send, size: 25),
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                    ),
+                    child: const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.arrow_back, size: 25),
+                      ),
                     ),
                   ),
+                  TextButton(
+                    onPressed: () {
+                      if (titleController.text.isNotEmpty &&
+                          bodyController.text.isNotEmpty) {
+                        Navigator.popUntil(
+                          context,
+                          ModalRoute.withName(AppRoutes.home),
+                        );
+
+                        context
+                            .read<ViewHome>()
+                            .updatePost(
+                                titleController.text, bodyController.text)
+                            .then((value) {
+                          if (value) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Post successfully edited"),
+                              duration: Duration(seconds: 1),
+                            ));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                AppSnackBarErrors.snackSmtWentWrongError);
+                          }
+                          
+                          context.read<ViewHome>().refresh();
+                        });
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            AppSnackBarErrors.snackFillAllFieldsError);
+                      }
+
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                    ),
+                    child: const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.send, size: 25),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const Divider(),
+              TextField(
+                controller: titleController,
+                decoration: const InputDecoration(
+                  labelText: "Title",
                 ),
-              ],
-            ),
-            const Divider(),
-            TextField(
-              controller: titleController,
-              decoration: const InputDecoration(
-                labelText: "Title",
               ),
-            ),
-            TextField(
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
-              controller: bodyController,
-              decoration: const InputDecoration(
-                labelText: "Text",
+              TextField(
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                controller: bodyController,
+                decoration: const InputDecoration(
+                  labelText: "Text",
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloggy/data/services/http_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -5,6 +7,10 @@ import 'package:http/http.dart' as http;
 import '../data/models/post.dart';
 
 class ViewHome extends ChangeNotifier {
+  ViewHome() {
+    refreshTrigger = getHttpAllPosts();
+  }
+
   final HttpService _httpService = HttpService();
 
   List<Post> _posts = [];
@@ -14,12 +20,19 @@ class ViewHome extends ChangeNotifier {
   String errorMessage = "";
   String errorPost = "";
 
+  late Future refreshTrigger;
+
   int getLenghtPost() => _posts.length;
   List<Post> getPosts() => _posts;
 
   Post getSelectedPost() => _selectedPost;
 
   Post getPostByIndex(int index) => _posts[index];
+
+  void refresh() {
+    refreshTrigger = getHttpAllPosts();
+    notifyListeners();
+  }
 
   Future<bool> updatePost(String title, String body) async {
     final Post post = Post(
@@ -79,7 +92,11 @@ class ViewHome extends ChangeNotifier {
       _posts = await _httpService.getAllPosts();
       errorMessage = "";
     } catch (e) {
-      errorMessage = e.toString();
+      if (e is SocketException) {
+        errorMessage = "No internet connection";
+      } else {
+        errorMessage = e.toString();
+      }
     }
   }
 

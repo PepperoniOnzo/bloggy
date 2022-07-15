@@ -6,7 +6,7 @@ class Post {
     this.body,
   );
 
-  late int id;
+  int id = 0;
   String title = '';
   String body = '';
   List<Comment>? comments;

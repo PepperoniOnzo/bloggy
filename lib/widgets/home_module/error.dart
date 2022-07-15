@@ -1,5 +1,7 @@
 import 'package:bloggy/data/constants/colors.dart';
+import 'package:bloggy/views/view_home.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Error extends StatelessWidget {
   const Error({Key? key}) : super(key: key);
@@ -28,6 +30,7 @@ class Error extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () {
+                  context.read<ViewHome>().refresh();
                   Navigator.pop(context);
                 },
                 child: const Text('Go home', style: TextStyle(fontSize: 20))),

@@ -1,5 +1,4 @@
 import 'package:bloggy/widgets/home_module/error.dart';
-import 'package:bloggy/widgets/home_module/home_info.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +15,6 @@ class PostDetails extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () async {
-        
         return true;
       },
       child: Scaffold(

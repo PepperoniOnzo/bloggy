@@ -11,7 +11,7 @@ class PostModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: context.read<ViewHome>().getHttpAllPosts(),
+      future: context.watch<ViewHome>().refreshTrigger,
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         Widget child;
         if (snapshot.connectionState == ConnectionState.done) {
