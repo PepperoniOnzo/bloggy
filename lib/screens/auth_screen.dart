@@ -1,4 +1,3 @@
-import 'package:bloggy/views/view_auth.dart';
 import 'package:bloggy/views/view_validation.dart';
 import 'package:bloggy/widgets/auth_module/log_in.dart';
 import 'package:flutter/material.dart';

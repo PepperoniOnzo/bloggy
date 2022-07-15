@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../data/models/validation_items.dart';
+import '../data/models/validation.dart';
 
 class ViewValidation extends ChangeNotifier {
   bool logIn = true;

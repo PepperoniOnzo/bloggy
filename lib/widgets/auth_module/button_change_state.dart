@@ -20,7 +20,7 @@ class ButtonChangeState extends StatelessWidget {
       },
       child: Text(
         textButton,
-        style: TextStyle(fontSize: 20, color: AppColors.textPrimaryLight),
+        style: const TextStyle(fontSize: 20, color: AppColors.textPrimaryLight),
       ),
     );
   }

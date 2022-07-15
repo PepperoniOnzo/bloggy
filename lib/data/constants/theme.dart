@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData themeData = ThemeData(
-      inputDecorationTheme: const InputDecorationTheme(
-        labelStyle: TextStyle(fontSize: 20, color: AppColors.textPrimary),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: AppColors.textPrimary),
-        ),
+    inputDecorationTheme: const InputDecorationTheme(
+      labelStyle: TextStyle(fontSize: 20, color: AppColors.textPrimary),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: AppColors.textPrimary),
       ),
-      scaffoldBackgroundColor: AppColors.backgroundPrimary,
-      textTheme: const TextTheme().apply(bodyColor: AppColors.textPrimary));
+    ),
+    textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(primary: AppColors.textPrimary)),
+    scaffoldBackgroundColor: AppColors.backgroundPrimary,
+  );
 }

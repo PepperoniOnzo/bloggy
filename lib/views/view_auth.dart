@@ -5,12 +5,19 @@ import 'package:flutter/material.dart';
 
 class ViewAuth extends ChangeNotifier {
   FirebaseService firebaseService = FirebaseService();
+  String currentUserEmail = '';
   SnackBar? snackBar;
+
+  void signOut() {
+    firebaseService.signOut();
+    currentUserEmail = '';
+    notifyListeners();
+  }
 
   Future<void> signUp(String email, String password) async {
     try {
-      await firebaseService.auth
-          .createUserWithEmailAndPassword(email: email, password: password);
+      await firebaseService.createUser(email: email, password: password);
+      setEmail();
       snackBar = null;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
@@ -25,8 +32,8 @@ class ViewAuth extends ChangeNotifier {
 
   Future<void> logIn(String email, String password) async {
     try {
-      await firebaseService.auth
-          .signInWithEmailAndPassword(email: email, password: password);
+      await firebaseService.authenticateUser(email: email, password: password);
+      setEmail();
       snackBar = null;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -41,7 +48,16 @@ class ViewAuth extends ChangeNotifier {
     }
   }
 
+  void setEmail() {
+    User? user = firebaseService.currentUser;
+    if (user != null) {
+      currentUserEmail = user.email!;
+    }
+    notifyListeners();
+  }
+
   Future<User?> checkAuth() async {
-    return firebaseService.auth.currentUser;
+    setEmail();
+    return firebaseService.currentUser;
   }
 }
