@@ -18,4 +18,11 @@ class AppSnackBarErrors {
 
   static const snackEmailInUseError =
       SnackBar(content: Text('Email is already in use'));
+
+  static const snackFillAllFieldsError =
+      SnackBar(content: Text('Fill all fields'));
+
+  static const snackSmtWentWrongError = SnackBar(
+    content: Text('Something went wrong'),
+  );
 }

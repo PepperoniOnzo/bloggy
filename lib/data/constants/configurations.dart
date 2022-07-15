@@ -4,5 +4,6 @@ class AppConfig {
 
   static const Duration loadingDuration = Duration(milliseconds: 500);
 
-  static const String apiUrl = 'https://bloggy-api.herokuapp.com/';
+  static const String apiHost = 'bloggy-api.herokuapp.com';
+  static const String apiScheme = 'https';
 }

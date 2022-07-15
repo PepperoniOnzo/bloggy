@@ -1,4 +1,5 @@
 import 'package:bloggy/data/constants/colors.dart';
+import 'package:bloggy/data/routes/routes.dart';
 import 'package:bloggy/views/view_home.dart';
 import 'package:bloggy/widgets/home_module/post_card.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,8 @@ class PostModule extends StatelessWidget {
               ),
               const Divider(),
               TextButton(
-                onPressed: () => {},
+                onPressed: () =>
+                    Navigator.pushNamed(context, AppRoutes.addPost),
                 child: const Center(
                   child: Padding(
                     padding: EdgeInsets.all(8.0),

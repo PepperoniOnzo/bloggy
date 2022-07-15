@@ -40,6 +40,9 @@ class MyApp extends StatelessWidget {
         AppRoutes.loading: (context) => const LoadingScreen(),
         AppRoutes.auth: (context) => const AuthScreen(),
         AppRoutes.home: (context) => const HomeScreen(),
+        AppRoutes.addPost: (context) => const AddPostScreen(),
+        AppRoutes.post: (context) => const PostDetails(),
+        AppRoutes.edit: (context) => const EditPostScreen(),
       },
     );
   }

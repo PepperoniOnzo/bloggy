@@ -1,9 +1,12 @@
 import 'package:bloggy/data/models/coment.dart';
 
 class Post {
-  Post();
+  Post(
+    this.title,
+    this.body,
+  );
 
-  late final int id;
+  late int id;
   String title = '';
   String body = '';
   List<Comment>? comments;
