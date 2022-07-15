@@ -4,21 +4,17 @@ Project created in flutter using `Provider`, with authentication by `firebase`. 
 
 ## Content table
 
----
-
 - [Build and run project](#how-to-build-project)
 - [Features](#features)
 - [Folder structure](#folder-structure)
 
 ## How to build project
 
----
-
 **Step 1:**
 
 Download or clone this repo by using the link below:
 
-```
+```text
 https://github.com/PepperoniOnzo/bloggy
 ```
 
@@ -40,8 +36,6 @@ flutter run lib\main.dart
 
 ## Features
 
----
-
 Application include the following features:
 
 1. Authentication flow (Firebase)
@@ -53,8 +47,6 @@ Application include the following features:
 7. Create a new Comment
 
 ## Folder Structure
-
----
 
 Here is the folder structure I have been using in this project
 
